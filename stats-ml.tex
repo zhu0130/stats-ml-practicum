@@ -1,0 +1,392 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Statistics and ML},
+  pdfauthor={Haocheng Zhu},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Statistics and ML}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{MSSP Practicum Discussion}
+\author{Haocheng Zhu}
+\date{2023-01-24}
+
+\begin{document}
+\maketitle
+
+\hypertarget{instructions}{%
+\subsection{Instructions}\label{instructions}}
+
+\textbf{Fork} the
+\href{https://github.com/carvalho/stats-ml-practicum}{\texttt{carvalho/stats-ml-practicum}}
+repository at GitHub, and \textbf{create a new branch with your BU
+login} to store your changes to the document. Start by changing the
+\texttt{author}in the YAML header of the document to state \textbf{your
+name}.
+
+Below we run some analyses and ask questions about them. As you run the
+code and interpret the results within your group, write your answers to
+the questions following the analyses, but:
+
+\begin{quote}
+You should submit your work as a \textbf{pull request} to the original
+repository!
+\end{quote}
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+In this project we study \textbf{tree canopy cover} as it varies with
+the \textbf{relative distance} to a tree line boundary in urban forests.
+The dataset in \texttt{stats-ml-canopy.RData} has three variables:
+\texttt{location} for the urban forest where the canopy cover was
+observed, \texttt{distance} for the relative distance --- zero is inside
+the forest and one is outside (city) --- and \texttt{cover} for the
+canopy cover.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{load}\NormalTok{(}\StringTok{"stats{-}ml{-}canopy.RData"}\NormalTok{)}
+\NormalTok{(canopy }\OtherTok{\textless{}{-}} \FunctionTok{as\_tibble}\NormalTok{(canopy))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3,000 x 3
+##    location distance cover
+##    <fct>       <dbl> <dbl>
+##  1 1          0      1.00 
+##  2 1          0.0345 1.00 
+##  3 1          0.0690 1.00 
+##  4 1          0.103  1.00 
+##  5 1          0.138  1.00 
+##  6 1          0.172  1.00 
+##  7 1          0.207  1.00 
+##  8 1          0.241  0.999
+##  9 1          0.276  0.998
+## 10 1          0.310  0.993
+## # ... with 2,990 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{order}\NormalTok{(canopy}\SpecialCharTok{$}\NormalTok{distance) }\CommentTok{\# for plots below}
+\FunctionTok{ggplot}\NormalTok{(canopy, }\FunctionTok{aes}\NormalTok{(distance, cover)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{"gray"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{stats-ml_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+As can be seen, there is a clear pattern here: the canopy cover starts
+high, closer to 100\% when inside the forest, but as the tree line
+recedes into the city, the canopy cover approaches zero.
+
+We are interested in two main tasks:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Understanding} this relationship more explicitly;
+\item
+  \textbf{Predicting} the canopy cover at the assumed tree line boundary
+  when \texttt{distance} is 0.5.
+\end{itemize}
+
+To this end, we explore four approaches below.
+
+\hypertarget{statistics-1-linear-fit}{%
+\subsection{Statistics 1: Linear Fit}\label{statistics-1-linear-fit}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(cover }\SpecialCharTok{\textasciitilde{}}\NormalTok{ distance, }\AttributeTok{data =}\NormalTok{ canopy, }\AttributeTok{family =}\NormalTok{ quasibinomial)}
+\FunctionTok{ggplot}\NormalTok{(canopy, }\FunctionTok{aes}\NormalTok{(distance, cover)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{col =} \StringTok{"gray"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(distance[idx], }\FunctionTok{fitted}\NormalTok{(m)[idx]))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{stats-ml_files/figure-latex/stats1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(m, }\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{distance =} \FloatTok{0.5}\NormalTok{), }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{type =} \StringTok{"response"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $fit
+##         1 
+## 0.5080519 
+## 
+## $se.fit
+##           1 
+## 0.005392449 
+## 
+## $residual.scale
+## [1] 0.343108
+\end{verbatim}
+
+Questions and tasks:
+
+\begin{itemize}
+\tightlist
+\item
+  Comment on the fit, plot residuals and comment on them.
+\item
+  Comment on the prediction; does it seem reasonable?
+\end{itemize}
+
+\hypertarget{ml-1-loess}{%
+\subsection{ML 1: LOESS}\label{ml-1-loess}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{loess}\NormalTok{(cover }\SpecialCharTok{\textasciitilde{}}\NormalTok{ distance, }\AttributeTok{data =}\NormalTok{ canopy)}
+\FunctionTok{ggplot}\NormalTok{(canopy, }\FunctionTok{aes}\NormalTok{(distance, cover)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{col =} \StringTok{"gray"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(distance[idx], }\FunctionTok{fitted}\NormalTok{(m)[idx]))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{stats-ml_files/figure-latex/ml1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(m, }\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{distance =} \FloatTok{0.5}\NormalTok{), }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $fit
+##        1 
+## 0.505973 
+## 
+## $se.fit
+##           1 
+## 0.004378154 
+## 
+## $residual.scale
+## [1] 0.1229851
+## 
+## $df
+## [1] 2995.204
+\end{verbatim}
+
+Questions and tasks:
+
+\begin{itemize}
+\tightlist
+\item
+  Check the definition of the \texttt{loess} function; how does it
+  differ from the previous approach?
+\item
+  Comment on the fit; does it seem reasonable?
+\item
+  Comment on the prediction, including the SE.
+\end{itemize}
+
+\hypertarget{ml-2-random-forest}{%
+\subsection{ML 2: Random Forest}\label{ml-2-random-forest}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(randomForest)}
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{randomForest}\NormalTok{(cover }\SpecialCharTok{\textasciitilde{}}\NormalTok{ distance, }\AttributeTok{data =}\NormalTok{ canopy)}
+\FunctionTok{ggplot}\NormalTok{(canopy, }\FunctionTok{aes}\NormalTok{(distance, cover)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{col =} \StringTok{"gray"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(distance[idx], }\FunctionTok{predict}\NormalTok{(m)[idx]))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{stats-ml_files/figure-latex/ml2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(m, }\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{distance =} \FloatTok{0.5}\NormalTok{), }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         1 
+## 0.5387242
+\end{verbatim}
+
+Questions and tasks:
+
+\begin{itemize}
+\tightlist
+\item
+  Check what \texttt{randomForest} does; what is \textbf{keyword} here?
+\item
+  Comment on the fit; how does it differ from the previous fits?
+\item
+  Comment on the prediction; how would you obtain a measure of
+  uncertainty?
+\end{itemize}
+
+\hypertarget{statistics-2-cubic-fit}{%
+\subsection{Statistics 2: Cubic Fit}\label{statistics-2-cubic-fit}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(cover }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(distance, }\DecValTok{3}\NormalTok{), }\AttributeTok{data =}\NormalTok{ canopy, }\AttributeTok{family =}\NormalTok{ quasibinomial)}
+\FunctionTok{ggplot}\NormalTok{(canopy, }\FunctionTok{aes}\NormalTok{(distance, cover)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{col =} \StringTok{"gray"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(distance[idx], }\FunctionTok{fitted}\NormalTok{(m)[idx]))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{stats-ml_files/figure-latex/stats2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{predict}\NormalTok{(m, }\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{distance =} \FloatTok{0.5}\NormalTok{), }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{type =} \StringTok{"response"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $fit
+##         1 
+## 0.5010702 
+## 
+## $se.fit
+##           1 
+## 0.006254468 
+## 
+## $residual.scale
+## [1] 0.3356464
+\end{verbatim}
+
+Questions and tasks:
+
+\begin{itemize}
+\tightlist
+\item
+  Comment on the fit and compare it to the first model; plot and check
+  residuals.
+\item
+  Comment on the prediction and compare it to previous results.
+\item
+  How would you know that a cubic fit is good enough?
+\end{itemize}
+
+\hypertarget{discussion}{%
+\subsection{Discussion}\label{discussion}}
+
+Let's try to connect all lessons learned from your work and the
+discussions. Elaborate more on the following questions:
+
+\begin{itemize}
+\tightlist
+\item
+  How would you know that the predictions are \emph{reliable}?
+\item
+  How would you test that the cover is exactly 50\% at the boundary
+  (\texttt{distance} = 0.5)? Which approaches would make the test easier
+  to perform?
+\item
+  How would you incorporate \texttt{location} in your analyses? How
+  would you know that it is meaningful to use it?
+\end{itemize}
+
+\end{document}

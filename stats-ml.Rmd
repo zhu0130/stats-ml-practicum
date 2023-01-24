@@ -1,9 +1,11 @@
 ---
 title: "Statistics and ML"
-subtitle: "MSSP Practicum Discussion"
 author: "Haocheng Zhu"
-date: "2023-01-24"
-output: html_document
+date: '2023-01-24'
+output:
+  html_document: default
+  pdf_document: default
+subtitle: MSSP Practicum Discussion
 ---
 
 ```{r setup, include=FALSE}
