@@ -1,0 +1,127 @@
+---
+title: "Statistics and ML"
+subtitle: "MSSP Practicum Discussion"
+author: "MSSP Practicum II"
+date: "2023-01-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Instructions
+
+**Fork** the [`carvalho/stats-ml-practicum`](https://github.com/carvalho/stats-ml-practicum) repository at GitHub, and
+**create a new branch with your BU login** to store your changes to the document.
+Start by changing the `author`in the YAML header of the document to state **your name**.
+
+Below we run some analyses and ask questions about them. As you run the code and
+interpret the results within your group, write your answers to the questions following the analyses, but:
+
+> You should submit your work as a **pull request** to the original repository!
+
+
+## Introduction
+
+In this project we study **tree canopy cover** as it varies with the
+**relative distance** to a tree line boundary in urban forests. The dataset in
+`stats-ml-canopy.RData` has three variables: `location` for the urban forest
+where the canopy cover was observed, `distance` for the relative distance &mdash;
+zero is inside the forest and one is outside (city) &mdash; and `cover` for the
+canopy cover.
+
+```{r}
+load("stats-ml-canopy.RData")
+(canopy <- as_tibble(canopy))
+
+idx <- order(canopy$distance) # for plots below
+ggplot(canopy, aes(distance, cover)) + geom_point(color = "gray")
+```
+
+As can be seen, there is a clear pattern here: the canopy cover starts high,
+closer to 100% when inside the forest, but as the tree line recedes into the
+city, the canopy cover approaches zero.
+
+We are interested in two main tasks:
+
+- **Understanding** this relationship more explicitly;
+- **Predicting** the canopy cover at the assumed tree line boundary when
+`distance` is 0.5.
+
+To this end, we explore four approaches below.
+
+## Statistics 1: Linear Fit
+
+```{r stats1}
+m <- glm(cover ~ distance, data = canopy, family = quasibinomial)
+ggplot(canopy, aes(distance, cover)) + geom_point(col = "gray") +
+  geom_line(aes(distance[idx], fitted(m)[idx]))
+predict(m, data.frame(distance = 0.5), se = TRUE, type = "response")
+```
+
+Questions and tasks:
+
+- Comment on the fit, plot residuals and comment on them.
+- Comment on the prediction; does it seem reasonable?
+
+
+## ML 1: LOESS
+
+```{r ml1}
+m <- loess(cover ~ distance, data = canopy)
+ggplot(canopy, aes(distance, cover)) + geom_point(col = "gray") +
+  geom_line(aes(distance[idx], fitted(m)[idx]))
+predict(m, data.frame(distance = 0.5), se = TRUE)
+```
+
+Questions and tasks:
+
+- Check the definition of the `loess` function; how does it differ from the previous approach?
+- Comment on the fit; does it seem reasonable?
+- Comment on the prediction, including the SE.
+
+
+## ML 2: Random Forest
+
+```{r ml2,message=FALSE}
+library(randomForest)
+m <- randomForest(cover ~ distance, data = canopy)
+ggplot(canopy, aes(distance, cover)) + geom_point(col = "gray") +
+  geom_line(aes(distance[idx], predict(m)[idx]))
+predict(m, data.frame(distance = 0.5), se = TRUE)
+```
+
+Questions and tasks:
+
+- Check what `randomForest` does; what is **keyword** here?
+- Comment on the fit; how does it differ from the previous fits?
+- Comment on the prediction; how would you obtain a measure of uncertainty?
+
+
+## Statistics 2: Cubic Fit
+
+```{r stats2}
+m <- glm(cover ~ poly(distance, 3), data = canopy, family = quasibinomial)
+ggplot(canopy, aes(distance, cover)) + geom_point(col = "gray") +
+  geom_line(aes(distance[idx], fitted(m)[idx]))
+predict(m, data.frame(distance = 0.5), se = TRUE, type = "response")
+```
+
+Questions and tasks:
+
+- Comment on the fit and compare it to the first model; plot and check residuals.
+- Comment on the prediction and compare it to previous results.
+- How would you know that a cubic fit is good enough?
+
+
+## Discussion
+
+Let's try to connect all lessons learned from your work and the discussions.
+Elaborate more on the following questions:
+
+- How would you know that the predictions are *reliable*?
+- How would you test that the cover is exactly 50% at the boundary (`distance` = 0.5)? Which approaches would make the test easier to perform?
+- How would you incorporate `location` in your analyses? How would you know that
+it is meaningful to use it?
